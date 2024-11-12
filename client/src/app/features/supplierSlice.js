@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import clientService from "../services/clientService";
+import supplierService from "../services/supplierService";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -10,12 +10,12 @@ const initialState = {
   message: "",
 };
 
-// add clients
-export const addClient = createAsyncThunk(
-  "client/addClient",
+// add suppliers
+export const addSupplier = createAsyncThunk(
+  "supplier/add-supplier",
   async (formData, thunkApi) => {
     try {
-      const response = await clientService.addClient(formData);
+      const response = await supplierService.addSupplier(formData);
       toast.success(response.message);
       return response;
     } catch (error) {
@@ -26,13 +26,13 @@ export const addClient = createAsyncThunk(
   }
 );
 
-// get all clients
-export const getClients = createAsyncThunk(
-  "client/getAllClients",
+// get all suppliers
+export const getSuppliers = createAsyncThunk(
+  "supplier/getAllSuppliers",
   async (_, thunkApi) => {
     try {
-      const response = await clientService.getClients();
-      return response.clients;
+      const response = await supplierService.getSuppliers();
+      return response.suppliers;
     } catch (error) {
       const message =
         error.response?.data?.message || error.message || error.toString();
@@ -41,30 +41,13 @@ export const getClients = createAsyncThunk(
   }
 );
 
-// get client by id
-export const getClientById = createAsyncThunk(
-  "client/getClientById",
+// get supplier by id
+export const getSupplierById = createAsyncThunk(
+  "supplier/get-Supplier-By-Id",
   async (id, thunkApi) => {
     try {
-      const response = await clientService.getClientById(id);
-      return response.client;
-    } catch (error) {
-      const message =
-        error.response?.data?.message || error.message || error.toString();
-      return thunkApi.rejectWithValue(message);
-    }
-  }
-);
-
-// delete client
-
-export const deleteClient = createAsyncThunk(
-  "client/deleteClient",
-  async (id, thunkApi) => {
-    try {
-      const response = await clientService.deleteClient(id);
-      toast.success(response.message);
-      return response;
+      const response = await supplierService.getSupplierById(id);
+      return response.supplier;
     } catch (error) {
       const message =
         error.response?.data?.message || error.message || error.toString();
@@ -74,12 +57,12 @@ export const deleteClient = createAsyncThunk(
 );
 
 
-// update client
-export const updateClient = createAsyncThunk(
-  "client/updateClient",
+// update supplier
+export const updateSupplier = createAsyncThunk(
+  "supplier/update-supplier",
   async ({id, formData}, thunkApi) => {
     try {
-      const response = await clientService.updateClient(id, formData);
+      const response = await supplierService.updateSupplier(id, formData);
       toast.success(response.message);
       return response;
     } catch (error) {
@@ -90,6 +73,21 @@ export const updateClient = createAsyncThunk(
   }
 );
 
+// delete supplier
+export const deleteSupplier = createAsyncThunk(
+  "supplier/delete-supplier",
+  async (id, thunkApi) => {
+    try {
+      const response = await supplierService.deleteSupplier(id);
+      toast.success(response.message);
+      return response;
+    } catch (error) {
+      const message =
+        error.response?.data?.message || error.message || error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
 const supplierSlice = createSlice({
   name: "supplier",
   initialState,
@@ -102,22 +100,76 @@ const supplierSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-      builder
-          .addCase(addClient.pending, (state) => {
-              state.isLoading = true;
-          })
-          .addCase(addClient.fulfilled, (state, action) => {
-              state.isLoading = false;
-              state.isSuccess = true;
-              state.isError = false;
-              state.message = action.payload.message;
-          })
-          .addCase(addClient.rejected, (state, action) => {
-              state.isLoading = false;
-              state.isError = true;
-              state.message = action.payload;
-          });
-    },
+    builder
+      .addCase(addSupplier.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addSupplier.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.message = action.payload.message;
+      })
+      .addCase(addSupplier.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getSuppliers.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSuppliers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.suppliers = action.payload;
+      })
+      .addCase(getSuppliers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteSupplier.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteSupplier.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+      })
+      .addCase(deleteSupplier.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getSupplierById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSupplierById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.supplier = action.payload;
+      })
+      .addCase(getSupplierById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateSupplier.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateSupplier.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateSupplier.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      });
+  },
 });
 
 export const { RESET } = supplierSlice.actions;

@@ -4,7 +4,8 @@ import ReactPaginate from "react-paginate";
 import DashboardLayout from "../../../components/common/DashboardLayout";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteClient, getClients } from "../../../app/features/clientSlice";
+import { deleteSupplier, getSuppliers } from "../../../app/features/supplierSlice";
+
 
 const Suppliers = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -21,16 +22,16 @@ const Suppliers = () => {
   const dispatch = useDispatch();
 
   const { suppliers, isLoading, isError, message } = useSelector(
-    (state) => state.client
+    (state) => state.supplier
   );
 
   useEffect(() => {
-    dispatch(getClients());
+    dispatch(getSuppliers());
   }, [dispatch]);
 
-  const handleDeleteClient = async (id) => {
-    await dispatch(deleteClient(id));
-    await dispatch(getClients());
+  const handleDeleteSupplier = async (id) => {
+    await dispatch(deleteSupplier(id));
+    await dispatch(getSuppliers());
   };
 
   const pageCount = Math.ceil(suppliers?.length / supplierPerPage);
@@ -41,7 +42,7 @@ const Suppliers = () => {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/add-clients");
+    navigate("/add-supplier");
   };
 
   // Filtering logic based on search inputs
@@ -72,7 +73,7 @@ const Suppliers = () => {
             className="bg-blue-500 text-white px-4 py-2 rounded flex items-center"
           >
             <FaUserPlus className="mr-2" />
-            Add Client
+            Add Suppliers
           </button>
         </div>
 
@@ -82,7 +83,7 @@ const Suppliers = () => {
             type="text"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
-            placeholder="Name"
+            placeholder="Search Name"
             className="border p-2 rounded w-full"
           />
 
@@ -90,19 +91,19 @@ const Suppliers = () => {
             type="text"
             value={searchEmail}
             onChange={(e) => setSearchEmail(e.target.value)}
-            placeholder="Email"
+            placeholder="Search Email"
             className="border p-2 rounded w-full"
           />
           <input
             type="text"
             value={searchCity}
             onChange={(e) => setSearchCity(e.target.value)}
-            placeholder="City"
+            placeholder="Search City"
             className="border p-2 rounded w-full"
           />
           <input
             type="text"
-            placeholder="CAP"
+            placeholder="Search CAP"
             value={searchCAP}
             onChange={(e) => setSearchCAP(e.target.value)}
             className="border p-2 rounded w-full"
@@ -111,7 +112,7 @@ const Suppliers = () => {
             type="text"
             value={searchPhone}
             onChange={(e) => setSearchPhone(e.target.value)}
-            placeholder="Phone"
+            placeholder="Search Phone"
             className="border p-2 rounded w-full"
           />
         </div>
@@ -142,14 +143,14 @@ const Suppliers = () => {
                   <td className="border p-2">
                     <button className="text-green-500 hover:text-green-700 mr-3">
                       <NavLink
-                        to={`/update-client/${client?._id}`}
+                        to={`/update-supplier/${supplier?._id}`}
                         aria-label="Edit client"
                       >
                         <FaEdit />
                       </NavLink>
                     </button>
                     <button
-                      onClick={() => handleDeleteClient(client?._id)}
+                      onClick={() => handleDeleteSupplier(supplier?._id)}
                       className="text-red-500 hover:text-red-700"
                     >
                       <FaTrashAlt />

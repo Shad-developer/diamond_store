@@ -82,7 +82,7 @@ const Clients = () => {
             type="text"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
-            placeholder="Name"
+            placeholder="Search Name"
             className="border p-2 rounded w-full"
           />
 
@@ -90,19 +90,19 @@ const Clients = () => {
             type="text"
             value={searchEmail}
             onChange={(e) => setSearchEmail(e.target.value)}
-            placeholder="Email"
+            placeholder="Search Email"
             className="border p-2 rounded w-full"
           />
           <input
             type="text"
             value={searchCity}
             onChange={(e) => setSearchCity(e.target.value)}
-            placeholder="City"
+            placeholder="Search City"
             className="border p-2 rounded w-full"
           />
           <input
             type="text"
-            placeholder="CAP"
+            placeholder="Search CAP"
             value={searchCAP}
             onChange={(e) => setSearchCAP(e.target.value)}
             className="border p-2 rounded w-full"
@@ -111,7 +111,7 @@ const Clients = () => {
             type="text"
             value={searchPhone}
             onChange={(e) => setSearchPhone(e.target.value)}
-            placeholder="Phone"
+            placeholder="Search Phone"
             className="border p-2 rounded w-full"
           />
           <select
@@ -119,7 +119,7 @@ const Clients = () => {
             onChange={(e) => setSearchStatus(e.target.value)}
             className="border p-2 rounded w-full"
           >
-            <option value="">Status</option>
+            <option value="">Search Status</option>
             <option value="active">Active</option>
             <option value="blocked">Blocked</option>
           </select>

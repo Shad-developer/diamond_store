@@ -5,12 +5,12 @@ const { protected, isAdmin } = require("../middleware/authMiddleware");
 
 router.post("/add-supplier", protected, isAdmin, supplierController.addNewSupplier);
 
-// router.get("/clients", protected, clientController.getAllClients);
+router.get("/suppliers", protected, supplierController.getAllSuppliers);
 
-// router.get("/client/:id", protected, clientController.getClientById);
+router.get("/supplier/:id", protected, supplierController.getSupplierById);
 
-// router.put("/client/:id", protected, isAdmin, clientController.updateClient);
+router.put("/supplier/:id", protected, isAdmin, supplierController.updateSupplier);
 
-// router.delete("/client/:id", protected, isAdmin, clientController.deleteClient);
+router.delete("/supplier/:id", protected, isAdmin, supplierController.deleteSupplier);
 
 module.exports = router;

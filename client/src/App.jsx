@@ -17,6 +17,7 @@ import AddUser from './pages/anagraphic/users/AddUser';
 import UpdateUser from './pages/anagraphic/users/UpdateUser';
 import AddSupplier from "./pages/anagraphic/suppliers/AddSupplier";
 import Suppliers from "./pages/anagraphic/suppliers/Suppliers";
+import EditSupplier from "./pages/anagraphic/suppliers/EditSupplier";
 
 axios.defaults.withCredentials = true;
 
@@ -31,7 +32,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer autoClose={1000} />
       <Routes>
         {/* Protected Routes */}
         <Route element={<ProtectedRoutes />}>
@@ -52,6 +53,8 @@ function App() {
           {/* Suppliers Routes */}
           <Route path="/suppliers" exact element={<Suppliers />} />
           <Route path="/add-supplier" exact element={<AddSupplier />} />
+          <Route path="/update-supplier/:id" element={<EditSupplier />} />
+
 
 
         </Route> 

@@ -37,8 +37,8 @@ const AddUser = () => {
       return toast.error("All fields are required");
     }
 
-    if (password.length < 8) {
-      return toast.error("Password should be at least 8 characters long");
+    if (password.length < 6) {
+      return toast.error("Password should be at least 6 characters long");
     }
 
     const userData = {
